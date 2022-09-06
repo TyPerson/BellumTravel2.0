@@ -1,6 +1,6 @@
 package com.bellum.model;
 
-import java.util.Date;
+//import java.util.Date;
 
 public class Viagem {
 	protected int codigo;
@@ -9,8 +9,8 @@ public class Viagem {
 	private int vagas;
 	private String itinerario;
 	private String programacao;
-	private Date dataInicio;
-	private Date dataFim;
+	private String dataInicio;
+	private String dataFim;
 	// to add total price
 	
 	public Viagem() {
@@ -66,19 +66,19 @@ public class Viagem {
 		this.programacao = programacao;
 	}
 
-	public Date getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataFim() {
+	public String getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
 

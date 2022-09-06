@@ -1,15 +1,15 @@
 package com.bellum.dao;
 
-/* Memorando...
+/* Remember...
  *  	Create, Read, Update, Delete
  * */
 import com.bellum.connect.*;
 import java.sql.Connection;
 import com.bellum.model.Pessoa;
-import java.sql.Date;
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class PessoaDAO {
 		PreparedStatement pstm = null;
 
 	public void save(Pessoa pessoa) {
-		String sql = "INSERT INTO Pessoa (nome, cpf, telefone, email, endereco, sexo) VALUES (?,?,?,?,?,?);";
+		String sql = "INSERT INTO Pessoa (nome, cpf, telefone, email, pessoa, sexo) VALUES (?,?,?,?,?,?);";
 		
 		try {
 			//Create DB connection
@@ -82,6 +82,37 @@ public class PessoaDAO {
 			}
 		}
 	}
+	
+	public void update(Pessoa pessoa) {
+		String sql = "UPDATE Pessoa SET nome = ?, telefone=?, email=?, endereco=?, sexo=?" + "WHERE idPessoa = ?";
+
+		try {
+			conn = ConnectionFacility.createConnectionToMySQL();
+			pstm = conn.prepareStatement(sql);
+			
+			pstm.setString(1, pessoa.getNome());
+			pstm.setString(2, pessoa.getTelefone());
+			pstm.setString(3, pessoa.getEmail());
+			pstm.setString(4, pessoa.getEndereco());
+			pstm.setString(5, pessoa.getSexo());
+			
+			pstm.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstm != null) {
+					pstm.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public List<Pessoa> getPessoass() {
 
@@ -111,7 +142,7 @@ public class PessoaDAO {
 				
 				pessoa.setEmail(rset.getString("email"));
 				
-				pessoa.setEndereco(rset.getString("endereco"));
+				pessoa.setEndereco(rset.getString("pessoa"));
 				
 				pessoa.setSexo(rset.getString("sexo"));
 				
@@ -162,7 +193,7 @@ public class PessoaDAO {
 			
 			pessoa.setEmail(rset.getString("email"));
 			
-			pessoa.setEndereco(rset.getString("endereco"));
+			pessoa.setEndereco(rset.getString("pessoa"));
 			
 			pessoa.setSexo(rset.getString("sexo"));
 			
